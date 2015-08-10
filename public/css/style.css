@@ -3,7 +3,9 @@
 	padding: 0;
 }
 body {
-	font: 15px Helvetica, Arial;
+	font: 15px 'Helvetica Neue thin', Arial;
+    font-weight: 100;
+    background-color: #F2F2F2;
 }
 ul li {
 	list-style-type: none;
@@ -26,4 +28,36 @@ form input[type="text"] {
 }
 form input[type="button"] {
 	width: 30%;
+}
+
+.container
+{
+    width: 90%;
+    max-width: 1200px;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px 14px;
+}
+
+.cover
+{
+    background-image: url("../images/cover.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    background-size: cover;
+}
+
+.clearfix
+{
+    clear: both;
+    margin: 20px 0px;
+}
+
+.products
+{
+    background-color: rgba(208, 208, 217, 0.6);
+    padding: 50px 0px;
 }
