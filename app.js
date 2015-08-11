@@ -8,7 +8,7 @@ var express = require('express'),
 	restful = require('node-restful'),
 	io = require('socket.io')(http);
 
-mongoose.connect('mongodb://localhost/imd');
+mongoose.connect('mongodb://localhost/district');
 
 app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
@@ -21,52 +21,45 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/views/index.html');
 });
-
-app.get('/test', function(req, res) {
-	res.send('Hello World');
-});
-
-app.get('/nieuw', function(req, res) {
-	res.send('Dit is mij eerste node test!');
+app.get('/insert', function(req, res) {
+	res.sendFile(__dirname + '/views/insert.html');
 });
 
 var Product = app.product = restful.model('Product', mongoose.Schema({
-	name: {
+	description: {
 		type: String,
 		required: true
 	},
-	amount: {
-		type: Number,
-		required: true,
-		default: 0
-	}
-}, {collection: 'product'})).methods(['get', 'post', 'put', 'delete']);
-Product.register(app, '/product');
-
-var Message = app.message = restful.model('Message', mongoose.Schema({
-	message: {
+	price: {
+		type: String,
+		required: true
+	},
+    image: {
 		type: String,
 		required: true
 	}
-}, {collection: 'message'})).methods(['get', 'post', 'put', 'delete']);
-Message.register(app, '/message');
+}, {collection: 'product'})).methods(['get', 'post', 'put', 'delete']);
+Product.register(app, '/product');
 
 io.on('connection', function(socket) {
 	console.log('user connected');
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
 	});
-	socket.on('message', function(a) {
-		Message.create({message: a}, function(err, b) {
-			console.log('b', b);
-			io.emit('update', b);
-		});
+	socket.on('product', function(data) {
+        var new_product = new Product(data);
+        new_product.save(function(err, data){
+            console.log(err);
+            console.log(data);
+            
+            io.emit('update', data);
+        });
 	});
 });
 io.on('connect', function(socket) {
-	Message.find()
-		.exec(function(err, messages) {
-			socket.emit('startMessages', messages);
+	Product.find()
+		.exec(function(err, products) {
+			socket.emit('startMessages', products);
 		});
 });
 
