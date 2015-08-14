@@ -1,11 +1,14 @@
 <!doctype html>
 <html>
 	<head>
-	<title>Webshop District01</title>
+	<title>District01 | Luxury Cases</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="icon" type="image/png" href="images/logo.png">
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "6fb5f412-7815-4015-a814-6ed5a3c89fe3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 	</head>
 	<body>
         <div class="container">
@@ -27,13 +30,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                    <ul class="nav navbar-nav navbar-right">
-                        <li class="login"><a href="#">Login</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="/">Link</a></li>
+                        <li class="login"><a href="/login">Login</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -56,12 +53,17 @@
 		    <div class="footer-container">
 		        
 		        <div class="col-md-6 text-center">
-		            &copy; Niels Meulders | Thomas More Mechelen
+		            <h3>Get in touch</h3>
+		            <span class='st_facebook_large' displayText='Facebook'></span>
+                    <span class='st_twitter_large' displayText='Tweet'></span>
+                    <span class='st_googleplus_large' displayText='Google +'></span>
+                    <span class='st_tumblr_large' displayText='Tumblr'></span>
+                    <span class='st_pinterest_large' displayText='Pinterest'></span>
 		        </div>
 		        
 		        
 		        <div class="col-md-6 text-center newsletter">
-                    <h3>Schrijf je in voor de nieuwsbrief!</h3>
+                    <h3>Schrijf je in voor de nieuwsbrief</h3>
 		            <form action="" class="newsletter-form">
 		                <input type="text" class="newsletter-input" placeholder="Uw email-adres"><br>
 		                <input type="submit" class="newsletter-button" value="Aanmelden!">
@@ -70,7 +72,12 @@
 		        
 		        <div class="clearfix"></div>
 		        
-		    </div>		    
+            </div>
+            
+            <div class="copyright text-center">
+                <p>&copy; Niels Meulders | Thomas More Mechelen</p>
+            </div>
+            
 		</footer>
 		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -80,7 +87,7 @@
 				socket.on('startMessages', function(products) {
                 console.log(products.length);
 					for(var i = 0; i < products.length; i++) {
-						$('.products').prepend('<div class="col-md-4 single_product"><img class="product_image" src="' + products[i].image + '" alt=""><div class="details"><p class="product_description">' + products[i].description + '</p><p class="product_price"><span class="euro">&euro; </span>' + products[i].price + '</p></div></div>');
+						$('.products').prepend('<div class="col-md-4 single_product"><div class="products_image_container"><img class="product_image" src="' + products[i].image + '" alt=""></div><div class="details"><p class="product_description">' + products[i].title + '</p><p class="product_price"><span class="euro">&euro; </span>' + products[i].price + '</p><a class="btn_product" href="/product?id=' + products[i]._id +'">Bekijk</a></div></div>');
                         
 					}
 				});

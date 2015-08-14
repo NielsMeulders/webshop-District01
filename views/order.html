@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+	<head>
+	<title>Webshop District01</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/png" href="images/logo.png">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "6fb5f412-7815-4015-a814-6ed5a3c89fe3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	</head>
+	<body>
+		<div class="container">
+		<div class="logo"><a href="/"><img src="images/logo.png" alt=""></a></div>
+	        
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                   <ul class="nav navbar-nav navbar-right">
+                        <li class="login"><a href="/login">Login</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            
+            <div class="row feedback text-center"></div>
+			<div class="row error text-center"></div>
+            
+			<div class="row">
+				<div class="col-lg-6 product_detail_image">
+				</div>
+				<div class="col-lg-6 product_detail">
+					<h3 class="product_detail_title"></h3>
+					<p class="product_detail_price">&euro; </p>
+					
+					<br><label for="select_quantity">Aantal: </label><br>
+					<select id="select_quantity" class="product_select_quantity">
+                        <option value="0">--Geen--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select><br>
+                    <br><form action="" class="order_form">
+                        <div class="form-group">
+                            <label for="username">Gebruikersnaam:</label>
+                            <input type="text" id="username" name="username" class="form-control">
+				        </div>
+				        <div class="form-group">
+                            <label for="address">Adres:</label>
+                            <input type="text" id="address" name="pass" class="form-control">
+						</div>
+						<input type="button" value="Bestel" class="button_order">
+					</form>
+                    
+					
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			$(document).ready(function() {
+				var socket = io();
+                var id = GetURLParameter("productid");
+				socket.on('startMessages', function(products) {
+					for(var i = 0; i < products.length; i++) {
+						if (products[i]._id==id)
+                            {
+                                $('.product_detail_image').html('<img class="product_detail_image_img" src="' + products[i].image + '" alt="">');
+                                $('.product_detail_title').html(products[i].title);
+                                $('.product_detail_price').append(products[i].price);
+                                $('.product_detail_description').html(products[i].description);
+                            }
+                        
+					}
+				});
+                
+                socket.on('startUsers', function(users) {
+                    var allUsers = users;
+                    
+                    $('.button_order').on("click", function(){
+                    var amount = $('#select_quantity').val();
+                    var address = $('#address').val();
+                    var input_user = $('#username').val();
+                    var userReturn = getUser(input_user, allUsers);
+                    var userFound = userReturn[0];
+                    var user = userReturn[1];
+                    console.log(userFound);
+                    var product = GetURLParameter("productid");
+                    if (amount == 0 || address == "" || input_user == "")
+                    {
+                        $('.error').fadeIn();
+                        $('.error').html('<p>Alle velden zijn verplicht</p>');
+                    }
+                    else
+                    {
+                        if (userFound)
+                        {
+                            var order = {"user_id": user._id, "product_id": product, "address": address, "amount": amount};
+                            socket.emit('order', order);
+                            $('.error').fadeOut();
+                            $('.feedback').fadeIn();
+                            $('.feedback').html('<p>Uw bestelling werd geregistreerd</p><a href="/">Klik hier om terug te gaan naar de producten</a>');
+                            $('#select_quantity').val(0);
+                            $('#address').val("");
+                            $('#username').val("");
+
+                        }
+                        else
+                        {
+                            $('.feedback').fadeOut();
+                            $('.error').fadeIn();
+                            $('.error').html('<p>Gebruikersnaam is niet geregistreerd</p>');
+                        }
+                    }
+                        
+                    
+                    
+                });
+				});
+                
+                
+                
+                function getUser(username, allUsers)
+                {
+                    var found = false;
+                    var data;
+                    for(var i = 0; i < allUsers.length; i++) {
+                        if (allUsers[i].username == username)
+                            {
+                                data = allUsers[i];
+                                found = true;
+                            }
+					   }
+                    return [found, data];
+                }
+                
+                function GetURLParameter(sParam)
+                {
+                    var sPageURL = window.location.search.substring(1);
+                    var sURLVariables = sPageURL.split('&');
+                    for (var i = 0; i < sURLVariables.length; i++)
+                    {
+                        var sParameterName = sURLVariables[i].split('=');
+                        if (sParameterName[0] == sParam)
+                        {
+                            return sParameterName[1];
+                        }
+                    }
+                }
+                
+			});
+		</script>
+	</body>
+</html>

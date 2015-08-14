@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+	<head>
+	<title>Klanten | Luxury Cases</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/png" href="../images/logo.png">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "6fb5f412-7815-4015-a814-6ed5a3c89fe3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	</head>
+	<body>
+        <div class="container">
+            <div class="logo"><a href="/manager/dashboard"><img src="../images/logo.png" alt=""></a></div>
+	        
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                   <ul class="nav navbar-nav navbar-right">
+                        <li class="login"><a href="/">Logout</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <div class="row">
+				
+					<h2 class="text-center whitespace">Overzicht bestellingen</h2>
+			</div>
+            
+			<div class="row dashboard">
+					<table class="table table-striped table_clients">
+                        <thead>
+                          <tr>
+                            <th>Voornaam</th>
+                            <th>Achternaam</th>
+                            <th>Gebruikersnaam</th>
+                            <th>Aantal bestellingen</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table_data">
+                        </tbody>
+                    </table>
+			</div>
+			
+		</div>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			$(document).ready(function() {
+				var socket = io();
+				socket.on('startOrders', function(orders) {
+                    var amount_orders = order.length;
+				});
+                socket.on('startUsers', function(users) {
+                    for (var i=0; i<users.length;i++)
+                    {
+                        if (users[i].type=="client")
+                            {
+                                $('#table_data').append('<tr><td>' + users[i].firstname + '</td><td>' + users[i].lastname + '</td><td>' + users[i].username + '</td><td>john@example.com</td></tr>');
+                            }
+                    }
+				});
+			});
+		</script>
+	</body>
+</html>

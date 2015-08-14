@@ -1,0 +1,97 @@
+ <!doctype html>
+<html>
+	<head>
+	<title>Registreer | District01</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/png" href="images/logo.png">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<div class="container">
+		<nav>
+	        
+	        <ul>
+	            <li class="logo"><a href="/"><img src="images/logo.png" alt=""></a></li>
+	            <li></li>
+	        </ul>
+	        
+	    </nav>
+			<div class="row">
+				
+					<h2 class="text-center whitespace">Registreer</h2>
+			</div>
+			<div class="row feedback text-center"></div>
+			<div class="row error text-center"></div>
+			<div class="row">
+					<form action="" class="add_product">
+                        <div class="form-group">
+                            <label for="username">Gebruikersnaam:</label>
+                            <input type="text" id="username" name="username" class="form-control">
+				        </div>
+				        <div class="form-group">
+                            <label for="pass">Wachtwoord:</label>
+                            <input type="password" id="pass" name="pass" class="form-control">
+						</div>
+						<div class="form-group">
+                            <label for="pass_rep">Herhaal wachtwoord:</label>
+                            <input type="password" id="pass_rep" name="pass_rep" class="form-control">
+						</div>
+						<input type="button" id="btn" value="Registreer" class="btn btn-default">
+						<a href="/" >annuleer</a>
+					</form>
+			</div>
+			
+		</div>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			$(document).ready(function() {
+				var socket = io();
+                
+                socket.on('startUsers', function(users) {                    
+                    $('#btn').on('click', function() {
+                        var name = $("#username").val();
+                        var pass = $('#pass').val();
+                        var pass_rep = $('#pass_rep').val();
+                        
+                        if (name != "")
+                        {
+                            if (pass != pass_rep)
+                            {
+                                $('.error').html('<p>Wachtwoorden komen niet overeen</p>');
+                                $('.error').fadeIn();
+                            }
+                            else
+                            {
+                                var exist = false;
+                                for (var i=0; i<users.length; i++)
+                                {
+                                    if (users[i].username == name)
+                                    {
+                                        exist = true;
+                                        $('.error').html('<p>Gebruikersnaam is al in gebruik</p>');
+                                        $('.error').fadeIn();
+                                    }
+                                    else
+                                    {
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            $('.error').html('<p>Gebruikersnaam mag niet leeg zijn</p>');
+                            $('.error').fadeIn();
+                        }
+                        
+                                                
+				    });
+                    
+				});
+                
+			});
+		</script>
+	</body>
+</html>
