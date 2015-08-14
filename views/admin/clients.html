@@ -61,19 +61,27 @@
 		<script>
 			$(document).ready(function() {
 				var socket = io();
-                var amount_orders = 0;
+                var allUsers;
 				socket.on('startOrders', function(orders) {
-                    amount_orders = order.length;
+                    for (var i=0; i<allUsers.length;i++)
+                    {
+                        if (allUsers[i].type=="client")
+                            {
+                                var amount_orders = 0;
+                                for (var j = 0; j<orders.length; j++)
+                                {
+                                    if (orders[j].user_id = allUsers[i]._id)
+                                        {
+                                            amount_orders++;
+                                        }
+                                }
+                                $('#table_data').append('<tr><td>' + allUsers[i].firstname + '</td><td>' + allUsers[i].lastname + '</td><td>' + allUsers[i].username + '</td><td>' + amount_orders + '</td></tr>');
+                            }
+                    }
                     
 				});
                 socket.on('startUsers', function(users) {
-                    for (var i=0; i<users.length;i++)
-                    {
-                        if (users[i].type=="client")
-                            {
-                                $('#table_data').append('<tr><td>' + users[i].firstname + '</td><td>' + users[i].lastname + '</td><td>' + users[i].username + '</td><td>' + amount_orders + '</td></tr>');
-                            }
-                    }
+                    allUsers = users;
 				});
 			});
 		</script>

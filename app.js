@@ -102,6 +102,10 @@ var Order = app.user = restful.model('Order', mongoose.Schema({
     amount: {
 		type: String,
 		required: true
+	},
+    status: {
+		type: String,
+		required: true
 	}
 }, {collection: 'order'})).methods(['get', 'post', 'put', 'delete']);
 User.register(app, '/order');
