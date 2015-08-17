@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-	<title>Status | Luxury Cases</title>
+	<title>Status | District01</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" type="image/png" href="../images/logo.png">
@@ -68,9 +68,12 @@
 		<script>
 			$(document).ready(function() {
 				var socket = io();
+                var newStatus = [];
+                var allOrdersId = [];
 				socket.on('startOrders', function(orders) {
                     for (var i=0; i<orders.length;i++)
                     {
+                        allOrdersId.push(orders[i]._id);
                         var current_order_id = orders[i]._id;
                         var status = orders[i].status;
                         var status_num = 0;
@@ -91,15 +94,21 @@
                             }
                         $('#table_data').append('<tr><td>' + orders[i].product_id + '</td><td>' + orders[i].status + '</td><td><select name="" id="' + current_order_id + '"><option value="1">Bevestigd</option><option value="2">Verzonden</option><option value="3">Afgeleverd</option></select></td></tr>');
                         $('#'+current_order_id).val(status_num);
-                        console.log(status_num);
                     }
-				});
-                socket.on('startUsers', function(users) {
-                    
 				});
                 
                 $("#btn").on("click", function(){
-                    
+                    for (var i=0; i<allOrdersId.length; i++)
+                        {
+                            var name = '#'+allOrdersId[i];
+                            var status = $('#'+allOrdersId[i]).val();
+                            newStatus.push(status);
+                        }
+                    console.log(newStatus);
+                    for (var a=0; a<newStatus.length; a++)
+                        {
+                            
+                        }
                 });
                 
 			});

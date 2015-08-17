@@ -143,8 +143,8 @@ io.on('connection', function(socket) {
         });
 	});
     
-    socket.on('user', function(data) {
-        var new_user = new User(data);
+    socket.on('user', function(user) {
+        var new_user = new User(user);
         new_user.save(function(err, data){
             console.log(err);
             console.log(data);

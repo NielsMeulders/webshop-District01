@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-	<title>Klanten | Luxury Cases</title>
+	<title>Klanten | District01</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" type="image/png" href="../images/logo.png">
@@ -70,9 +70,10 @@
                                 var amount_orders = 0;
                                 for (var j = 0; j<orders.length; j++)
                                 {
-                                    if (orders[j].user_id = allUsers[i]._id)
+                                    if (orders[j].user_id == allUsers[i]._id)
                                         {
                                             amount_orders++;
+                                            console.log(amount_orders);
                                         }
                                 }
                                 $('#table_data').append('<tr><td>' + allUsers[i].firstname + '</td><td>' + allUsers[i].lastname + '</td><td>' + allUsers[i].username + '</td><td>' + amount_orders + '</td></tr>');

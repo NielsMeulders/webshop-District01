@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-	<title>Klanten | Luxury Cases</title>
+	<title>Bestellingen | District01</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" type="image/png" href="../images/logo.png">
@@ -64,7 +64,7 @@
 				socket.on('startOrders', function(orders) {
                     for (var i=0; i<orders.length;i++)
                     {
-                        $('#table_data').append('<tr><td><a href="/product?id=' + orders[i].product_id + '">' + orders[i].product_id + '</a></td><td>' + orders[i].user_id + '</td><td>' + orders[i].amount + '</td><td>' + orders[i].status + '</td></tr>');
+                        $('#table_data').prepend('<tr><td><a href="/product?id=' + orders[i].product_id + '">' + orders[i].product_id + '</a></td><td>' + orders[i].user_id + '</td><td>' + orders[i].amount + '</td><td>' + orders[i].status + '</td></tr>');
                     }
 				});
                 socket.on('startUsers', function(users) {

@@ -272,23 +272,38 @@ footer h3
     padding: 20px;
     background-color: #F2F2F2;
     text-align: center;
-    
 }
 .inner_dashboard_control
 {
     text-align: left;
 }
-.dashboard_orders, .dashboard_users, .dashboard_products
+.dashboard_client, .inner_dashboard_control_client
+{
+    width: 95%;
+}
+.dashboard_orders, .dashboard_users, .dashboard_products, .dashboard_profile, .dashboard_order
 {
     background-size: 50px;
     background-position: 0% 50%;
     background-repeat: no-repeat;
 }
+.dashboard_profile, .dashboard_order
+{
+    background-position: center 10px;
+}
 .dashboard_orders
 {
     background-image: url("../images/cart.svg");
 }
+.dashboard_order
+{
+    background-image: url("../images/cart.svg");
+}
 .dashboard_users
+{
+    background-image: url("../images/user.svg");
+}
+.dashboard_profile
 {
     background-image: url("../images/user.svg");
 }
@@ -310,6 +325,11 @@ footer h3
     margin-left: auto;
     margin-right: auto;
     width: 75%;
+}
+
+.profile_page_table tr
+{
+    height: 35px;
 }
 
 
