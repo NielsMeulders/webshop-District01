@@ -52,6 +52,12 @@ app.get('/manager/orders', function(req, res) {
 app.get('/manager/status', function(req, res) {
 	res.sendFile(__dirname + '/views/admin/status.html');
 });
+app.get('/client/dashboard', function(req, res) {
+	res.sendFile(__dirname + '/views/client/dashboard.html');
+});
+app.get('/client/orders', function(req, res) {
+	res.sendFile(__dirname + '/views/client/orders.html');
+});
 
 var Product = app.product = restful.model('Product', mongoose.Schema({
 	title: {
