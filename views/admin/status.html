@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+	<title>Status | Luxury Cases</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/png" href="../images/logo.png">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "6fb5f412-7815-4015-a814-6ed5a3c89fe3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	</head>
+	<body>
+        <div class="container">
+            <div class="logo"><a href="/manager/dashboard"><img src="../images/logo.png" alt=""></a></div>
+	        
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                   <ul class="nav navbar-nav navbar-right">
+                        <li class="login"><a href="/">Logout</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <div class="row">
+				
+					<h2 class="text-center whitespace">Status aanpassen</h2>
+			</div>
+            
+			<div class="row dashboard">
+					<table class="table table-striped table_clients">
+                        <thead>
+                          <tr>
+                            <th>Bestelling</th>
+                            <th>Status</th>
+                            <th>Aanpassen</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table_data">
+                        </tbody>
+                    </table>
+                    <br><form action="" class="change_status text-center">
+						<input type="button" id="btn" value="Opslaan" class="btn btn-default">
+						<a href="/manager/dashboard">Annuleer</a>
+                    </form>
+			</div>
+			
+			<div class="row">
+			    
+			</div>
+			
+		</div>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			$(document).ready(function() {
+				var socket = io();
+				socket.on('startOrders', function(orders) {
+                    for (var i=0; i<orders.length;i++)
+                    {
+                        var current_order_id = orders[i]._id;
+                        var status = orders[i].status;
+                        var status_num = 0;
+                        switch (status)
+                            {
+                                case "bevestigd":
+                                    status_num = 1;
+                                    break;
+                                
+                                case "verzonden":
+                                    status_num = 2;
+                                    break;
+                                    
+                                case "afgeleverd":
+                                    status_num = 3;
+                                    break;
+                                    
+                            }
+                        $('#table_data').append('<tr><td>' + orders[i].product_id + '</td><td>' + orders[i].status + '</td><td><select name="" id="' + current_order_id + '"><option value="1">Bevestigd</option><option value="2">Verzonden</option><option value="3">Afgeleverd</option></select></td></tr>');
+                        $('#'+current_order_id).val(status_num);
+                        console.log(status_num);
+                    }
+				});
+                socket.on('startUsers', function(users) {
+                    
+				});
+                
+                $("#btn").on("click", function(){
+                    
+                });
+                
+			});
+		</script>
+	</body>
+</html>

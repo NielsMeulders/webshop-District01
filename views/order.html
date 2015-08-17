@@ -111,7 +111,7 @@
                     {
                         if (userFound)
                         {
-                            var order = {"user_id": user._id, "product_id": product, "address": address, "amount": amount};
+                            var order = {"user_id": user._id, "product_id": product, "address": address, "amount": amount, "status": "bevestigd"};
                             socket.emit('order', order);
                             $('.error').fadeOut();
                             $('.feedback').fadeIn();

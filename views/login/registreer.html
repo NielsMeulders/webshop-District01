@@ -26,6 +26,14 @@
 			<div class="row">
 					<form action="" class="add_product">
                         <div class="form-group">
+                            <label for="firstname">Voornaam:</label>
+                            <input type="text" id="firstname" name="firstname" class="form-control">
+				        </div>
+				        <div class="form-group">
+                            <label for="lastname">Achternaam:</label>
+                            <input type="text" id="lastname" name="lastname" class="form-control">
+				        </div>
+				        <div class="form-group">
                             <label for="username">Gebruikersnaam:</label>
                             <input type="text" id="username" name="username" class="form-control">
 				        </div>
@@ -75,6 +83,14 @@
                                     }
                                     else
                                     {
+                                        var firstname = $("#firstname").val();
+                                        var lastname = $("#lastname").val();
+                                        var user = {"firstname": firstname, "lastname": lastname, "username": name, "password": pass, "type": "client"};
+                                        socket.emit('user', user);
+                                        $('.feedback').html('<p>Uw account werd geregistreerd</p>');
+                                        $('.error').fadeOut();
+                                        $('.feedback').fadeIn();
+                                        
                                         
                                     }
                                 }

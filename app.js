@@ -49,6 +49,9 @@ app.get('/manager/clients', function(req, res) {
 app.get('/manager/orders', function(req, res) {
 	res.sendFile(__dirname + '/views/admin/orders.html');
 });
+app.get('/manager/status', function(req, res) {
+	res.sendFile(__dirname + '/views/admin/status.html');
+});
 
 var Product = app.product = restful.model('Product', mongoose.Schema({
 	title: {
@@ -71,7 +74,15 @@ var Product = app.product = restful.model('Product', mongoose.Schema({
 Product.register(app, '/product');
 
 var User = app.user = restful.model('User', mongoose.Schema({
-	username: {
+	firstname: {
+		type: String,
+		required: true
+	},
+    lastname: {
+		type: String,
+		required: true
+	},
+    username: {
 		type: String,
 		required: true
 	},
@@ -126,12 +137,23 @@ io.on('connection', function(socket) {
         });
 	});
     
+    socket.on('user', function(data) {
+        var new_user = new User(data);
+        new_user.save(function(err, data){
+            console.log(err);
+            console.log(data);
+            
+            io.emit('updateUser', data);
+        });
+	});
+    
     socket.on('order', function(data) {
         var new_order = new Order(data);
         new_order.save(function(err, data){
             console.log(err);
             console.log(data);
             
+            socket.emit('updateOrder', data);
             io.emit('updateOrder', data);
         });
 	});
