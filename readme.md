@@ -28,3 +28,11 @@ Er kan ook een lijst van klanten opgevraagd worden wanneer er geklikt wordt op '
 
 #### Klant
 
+Een klant hoeft niet ingelogd te zijn om de producten te bekijken. Hij kan eenvoudig doorheen de lijst scrollen en eventueel meer details van een product zien.
+Wanneer er een product besteld dient te worden, is een account wel verplicht. Als er nog geen account geregistreerd is, kan de klant via het login-scherm een nieuwe account aanmaken.
+
+Bij de bestelling van een product dient niet ingelogd te worden. Het systeem zal vragen naar de gebruikersnaam (die uniek is) en het adres. Als deze correct zijn ingevuld, kan het artikel besteld worden.
+
+Alle bestellingen kan de klant terugvinden op het klantendashboard. Hiervoor dient ingelogd te worden waarna er meteen doorverwezen wordt naar dit dashboard. Daarop is in één oogopslag te zien welke bestellingen hij gedaan heeft. De laatste bestelling komt bovenaan de lijst.
+
+De klantengegevens vinden we ook op dit dashboard (rechts voor desktop gebruikers en onderaan voor mobiele gebruikers).
