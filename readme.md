@@ -1,4 +1,4 @@
-# Node.js webshop app
+# Node.js webshop app District01
 
 ## Installeren
 
@@ -9,6 +9,6 @@ $ npm install
 $ node app.js
 ```
 
-App is now running on **http://localhost:3003**.
+De app draait nu op <**http://localhost:3003**>.
 
 How to
