@@ -21,4 +21,4 @@ gulp.task('watch', function(){
 	gulp.watch('public/stylesheets/css/*.css', ['styles']);
 }) 
 
-gulp.task('go',['watch', 'styles', 'imagemin']);
+gulp.task('start',['watch', 'styles', 'imagemin']);
