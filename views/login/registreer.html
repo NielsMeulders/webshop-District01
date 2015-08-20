@@ -87,9 +87,16 @@
                                         var lastname = $("#lastname").val();
                                         var user = {"firstname": firstname, "lastname": lastname, "username": name, "password": pass, "type": "client"};
                                         socket.emit('user', user);
-                                        $('.feedback').html('<p>Uw account werd geregistreerd</p>');
+                                        $('.feedback').html('<p>Uw account werd geregistreerd</p><a href="/">Klik hier om terug te gaan naar het hoofdscherm</a>');
                                         $('.error').fadeOut();
                                         $('.feedback').fadeIn();
+                                        
+                                        $('#firstname').val("");
+                                        $('#lastname').val("");
+                                        $('#username').val("");
+                                        $('#pass').val("");
+                                        $('#pass_rep').val("");
+                                        break;
                                         
                                     }
                                 }
