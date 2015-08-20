@@ -111,7 +111,16 @@
                         }
                     for (var a=0; a<myOrders.length;a++)
                         {
-                            $('#table_data').prepend('<tr><td><a href="/product?id=' + myOrders[a].product_id + '">' + myOrders[a].product_id + '</a></td><td>' + myOrders[a].amount + '</td><td>' + myOrders[a].status + '</td></tr>');
+                            var orderedProduct;
+                            console.log(allProducts);
+                            for (var i=0; i<allProducts.length;i++)
+                            {
+                                if (allProducts[i]._id === myOrders[a].product_id)
+                                {
+                                    orderedProduct = allProducts[i].title;
+                                }
+                            }
+                            $('#table_data').prepend('<tr><td><a href="/product?id=' + myOrders[a].product_id + '">' + orderedProduct + '</a></td><td>' + myOrders[a].amount + '</td><td>' + myOrders[a].status + '</td></tr>');
                         }
 				});
                 socket.on('startUsers', function(users) {
