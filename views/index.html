@@ -85,7 +85,6 @@
 			$(document).ready(function() {
 				var socket = io();
 				socket.on('startMessages', function(products) {
-                console.log(products.length);
 					for(var i = 0; i < products.length; i++) {
 						$('.products').prepend('<div class="col-md-4 single_product"><div class="products_image_container"><img class="product_image" src="' + products[i].image + '" alt=""></div><div class="details"><p class="product_description">' + products[i].title + '</p><p class="product_price"><span class="euro">&euro; </span>' + products[i].price + '</p><a class="btn_product" href="/product?id=' + products[i]._id +'">Bekijk</a></div></div>');
                         
