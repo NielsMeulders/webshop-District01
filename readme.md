@@ -1,6 +1,6 @@
-# Node.js Tutorial Socket
+# Node.js webshop app
 
-## Install
+## Installeren
 
 
 ```sh
@@ -10,3 +10,5 @@ $ node app.js
 ```
 
 App is now running on **http://localhost:3003**.
+
+How to
